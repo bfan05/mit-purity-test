@@ -119,21 +119,6 @@
       <button class="share">Share My Score</button>
     </div>
   </div>
-
-  function sendToGoogleSheets(score, checkedCount, total) {
-    fetch('https://script.google.com/macros/s/AKfycbx-aNHWYNKJAHdACZA1FT1mU6z5Pm8iXzzReua_ZWFC7xJGYTcPv0N-0-C9U-5b7oOdsw/exec', {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        score,
-        checkedCount,
-        total
-      })
-    });
-  }
   
 
   <script>
@@ -247,6 +232,21 @@
       div.innerHTML = `<label><input type="checkbox" name="q${i + 1}" /> ${q}</label>`;
       container.appendChild(div);
     });
+
+    function sendToGoogleSheets(score, checkedCount, total) {
+      fetch('https://script.google.com/macros/s/AKfycbx-aNHWYNKJAHdACZA1FT1mU6z5Pm8iXzzReua_ZWFC7xJGYTcPv0N-0-C9U-5b7oOdsw/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          score,
+          checkedCount,
+          total
+        })
+      });
+    }
 
     function getTagline(score) {
       if (score === 100) return "Dawg no way you go to MIT right... right?";
