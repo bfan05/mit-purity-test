@@ -6,31 +6,41 @@
   <title>MIT Purity Test</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --mit-red: #a31f34;
+      --mit-gray: #8a8b8c;
+      --mit-light-gray: #f4f4f4;
+      --mit-dark: #2e2a29;
+      --mit-blue: #1e3a8a;
+    }
+
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #f9f3e5;
-      color: #2e2e2e;
+      background-color: var(--mit-light-gray);
+      color: var(--mit-dark);
       padding: 2rem;
       margin: 0;
     }
     .container {
       max-width: 700px;
       margin: auto;
-      background: #fff6e1;
+      background: white;
       padding: 2rem;
       border-radius: 20px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     }
     h1 {
       text-align: center;
       font-family: 'Playfair Display', serif;
       font-size: 2.5rem;
       margin-bottom: 0.5rem;
+      color: var(--mit-red);
     }
     .subtitle {
       text-align: center;
       font-style: italic;
       margin-bottom: 2rem;
+      color: var(--mit-gray);
     }
     .question {
       margin: 0.75rem 0;
@@ -40,14 +50,14 @@
       margin: 2rem auto;
       padding: 0.75rem 1.5rem;
       font-size: 1.1rem;
-      background-color: #2d2d2d;
+      background-color: var(--mit-red);
       color: #fff;
       border: none;
       border-radius: 8px;
       cursor: pointer;
     }
     .submit-button:hover {
-      background-color: #444;
+      background-color: #891c2d;
     }
     .result-screen {
       display: none;
@@ -57,12 +67,12 @@
     .result-score {
       font-size: 4rem;
       font-weight: 700;
-      color: #1e3a8a;
+      color: var(--mit-red);
     }
     .tagline {
       font-style: italic;
       margin-top: 1rem;
-      color: #333;
+      color: var(--mit-gray);
     }
     .result-buttons {
       margin-top: 2rem;
@@ -76,11 +86,11 @@
       cursor: pointer;
     }
     .retake {
-      background: #1e3a8a;
+      background: var(--mit-blue);
       color: white;
     }
     .share {
-      background: #7f1d1d;
+      background: var(--mit-red);
       color: white;
     }
   </style>
@@ -227,7 +237,7 @@
       const total = checkboxes.length;
       const score = 100 - Math.round((checkedCount / total) * 100);
       document.getElementById('score').textContent = `${score}%`;
-      document.getElementById('tagline').textContent = score === 100 ? "Dawg no way you go to MIT... right?" : "Interesting...";
+      document.getElementById('tagline').textContent = score === 100 ? "Dawg no way you go to MIT right... right?" : "Interesting...";
       document.getElementById('quiz-screen').style.display = 'none';
       document.getElementById('result-screen').style.display = 'block';
     });
