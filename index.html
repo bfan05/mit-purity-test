@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MIT Purity Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+    }
+    .question {
+      margin: 0.75rem 0;
+    }
+    .submit-button {
+      display: block;
+      margin: 2rem auto;
+      padding: 0.75rem 1.5rem;
+      font-size: 1.2rem;
+      background-color: black;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .submit-button:hover {
+      background-color: #333;
+    }
+    .result {
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>MIT Purity Test</h1>
+  <form id="purityForm">
+    <!-- Questions inserted here -->
+    <div id="questions"></div>
+    <button type="submit" class="submit-button">Submit</button>
+  </form>
+  <div class="result" id="result"></div>
+
+  <script>
+    const questions = [
+      "Failed an ASE?",
+      "Taken a class in Stata?",
+      "Taken a class with Mohamed?",
+      "Used a flex PNR",
+      "Spent more than 10 hours on Courseroad?",
+      "Spent more than 10 hours on Hydrant?",
+      "Filled out a course evaluation report?",
+      "Used AI tools like ChatGPT to complete an assignment or exam?",
+      "ChatGPT-ed an entire class?",
+      "Been caught cheating on an assigment/exam?",
+      "Participated in a UROP?",
+      "Taken a class over IAP?",
+      "Taken a CS class?",
+      "Taken Bodies in Motion?",
+      "TA/LA-ed a class?",
+      "Decided to not take a class because it was at 9am?",
+      "Decided to not take a class because it has a final?",
+      "Been to a quant recruiting event?",
+      "Considered becoming a quant?",
+      "Gotten a job at the career fair?",
+      "Went to a career fair for the merch?",
+      "Have not received an internship/job offer for this upcoming summer?",
+      "Over-reported hours for a TA/LA job?",
+      "Changed your major more than once?",
+      "Are or have considered becoming a course 6?",
+      "Chosen MIT over an ivy?",
+      "Wanted to switch majors because of a class?",
+      "Considered dropping out to pursue an AI startup?",
+      "Cried over a midterm or final?",
+      "Cried on campus?",
+      "Lied about being sober?",
+      "Wish you went to a different school?",
+      "Feel like you contribute to the \"MIT Goggles\" phenomenon?",
+      "Moved out of your freshman year dorm?",
+      "Secretly disliked your roommate?",
+      "Kicked out your roommate for romantic reasons?",
+      "Set off a fire alarm?",
+      "Been caught by a GRA for breaking dorm rules?",
+      "Try to FYRE out of your dorm freshman year?",
+      "Had an unpleasant experience with laundry?",
+      "Wish you lived in EC?",
+      "Gotten Teado as a meal?",
+      "Gotten Dunkin as a meal?",
+      "Gotten food poisoning from Vassar?",
+      "Gotten a sandwich at Vassar?",
+      "Used less than half of your meal swipes in a semester?",
+      "Eaten a banana from the Banana Lounge as a meal?",
+      "Had late night at Maseeh or Simmons?",
+      "Had lunch at the Stata cafe?",
+      "Tapped someone in/have been tapped in to a dining hall",
+      "Purchased food from the Hayden cafe?",
+      "Been to all the dining halls?",
+      "Been to Chipotle more than twice in one week?",
+      "Stolen something from the dining halls?",
+      "Slept in a library?",
+      "Slept in the banana lounge?",
+      "Pulled an all-nighter at the Stud, Barker, or Hayden?",
+      "Been in a relationship with a professor/TA?",
+      "Dated someone from Harvard?",
+      "Secretly hated your frat/sorority?",
+      "Secretly disliked your brass rat design?",
+      "Purchased a Valentine’s Day serenade?",
+      "Been serenaded on Valentine’s Day?",
+      "Blacked out?",
+      "Bluebiked to class?",
+      "Ubered to frat row?",
+      "Used an electric scooter or skateboard to get to class?",
+      "Rode the tech shuttle?",
+      "Taken the T to Harvard?",
+      "Run along the Charles river?",
+      "Hosted a prefrosh for CPW?",
+      "Volunteered at a CPW/REX event?",
+      "Participated in a puzzle hunt?",
+      "Attended an event in Prudential?",
+      "Watched a concert in Kresge?",
+      "Been to the Muddy?",
+      "Participated in 4/20 activities?",
+      "Been part of a protest?",
+      "Gone downstairs from Stud 5 to use the Stud 4 bathrooms?",
+      "Sent a dormspam email?",
+      "Posted anonymously on Piazza?",
+      "Posted on Fizz?",
+      "Wanted to change your kerb?",
+      "Explored the tunnels?",
+      "Gotten lost in Stata?",
+      "Climbed onto a campus roof?",
+      "Taken a picture of the big dome?",
+      "Taken FDOC pictures on Killian?",
+      "Seen a Furry on campus?",
+      "Had an appointment at MIT Medical?",
+      "Been transported?",
+      "Caught the “freshman flu”?",
+      "Had PE registration crash on you?",
+      "Been ice skating at Johnson?",
+      "Been to the Stata gym because the Z is too busy?",
+      "Had a final scheduled on the last day of finals week?",
+      "Had an exam in Walker?",
+      "Explored campus through hacking?",
+      "Voted in the UA elections?",
+      "Been on a club retreat?"
+    ];
+
+    const container = document.getElementById('questions');
+    questions.forEach((q, i) => {
+      const div = document.createElement('div');
+      div.className = 'question';
+      div.innerHTML = `<label><input type="checkbox" name="q${i+1}" /> ${q}</label>`;
+      container.appendChild(div);
+    });
+
+    document.getElementById('purityForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      let checkedCount = 0;
+      checkboxes.forEach(cb => {
+        if (cb.checked) checkedCount++;
+      });
+      const total = checkboxes.length;
+      const score = 100 - Math.round((checkedCount / total) * 100);
+      document.getElementById('result').textContent = `Your MIT Purity Score: ${score}`;
+    });
+  </script>
+</body>
+</html>
