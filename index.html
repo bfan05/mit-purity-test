@@ -98,10 +98,17 @@
       background: var(--mit-red);
       color: white;
     }
+    .dome-logo {
+      display: block;
+      margin: 0 auto 1rem auto;
+      max-width: 150px;
+      height: auto;
+    }
   </style>
 </head>
 <body>
   <div class="container" id="quiz-screen">
+    <img src="dome.png" alt="MIT Dome" class="dome-logo" />
     <h1>The Official<br>MIT Purity Test</h1>
     <div class="subtitle">Have you ever...</div>
     <form id="purityForm">
@@ -272,6 +279,25 @@
       sendToGoogleSheets(score, checkedCount, total);
       document.getElementById('quiz-screen').style.display = 'none';
       document.getElementById('result-screen').style.display = 'block';
+    });
+
+    document.querySelector('.share').addEventListener('click', () => {
+      const score = document.getElementById('score').textContent;
+      const url = window.location.href;
+      const text = `I got a ${score} on the MIT Purity Test! Take it here: ${url}`;
+
+      if (navigator.share) {
+        navigator.share({
+          title: "MIT Purity Test",
+          text: text,
+          url: url
+        }).catch(err => console.log('Share cancelled', err));
+      } else {
+        // Fallback: copy to clipboard
+        navigator.clipboard.writeText(text).then(() => {
+          alert("Score copied to clipboard! 🎉");
+        });
+      }
     });
   </script>
 </body>
