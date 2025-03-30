@@ -17,6 +17,9 @@
     body {
       font-family: 'Inter', sans-serif;
       background-color: var(--mit-light-gray);
+      background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAIAAAD2HxkiAAAARGVYSWZNTQAqAAAACAABh2kABAAAAAEAAAAaAAAAAAADoAEAAwAA");
+      background-repeat: repeat;
+      background-size: 100px;
       color: var(--mit-dark);
       padding: 2rem;
       margin: 0;
@@ -132,7 +135,7 @@
       "Taken a CS class?",
       "Taken Bodies in Motion?",
       "TA/LA-ed a class?",
-      "Decided to not take a class because it was at 9am?",
+      "Decided to not take a class because it was at 9 am?",
       "Decided to not take a class because it has a final?",
       "Been to a quant recruiting event?",
       "Considered becoming a quant?",
@@ -227,6 +230,16 @@
       container.appendChild(div);
     });
 
+    function getTagline(score) {
+      if (score === 100) return "Dawg no way you go to MIT right... right?";
+      if (score >= 90) return "You are a certified frosh."
+      if (score >= 70) return "So you're telling me you still go to class?"
+      if (score >= 50) return "Balanced but suspicious..."
+      if (score >= 30) return "You basically live in Hayden."
+      if (score >= 10) return "You’re probably Course 6 and it shows."
+      return "You are the reason CPW has a waiver form.";
+    }
+
     document.getElementById('purityForm').addEventListener('submit', function (e) {
       e.preventDefault();
       const checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -237,7 +250,7 @@
       const total = checkboxes.length;
       const score = 100 - Math.round((checkedCount / total) * 100);
       document.getElementById('score').textContent = `${score}%`;
-      document.getElementById('tagline').textContent = score === 100 ? "Dawg no way you go to MIT right... right?" : "Interesting...";
+      document.getElementById('tagline').textContent = getTagline(score);
       document.getElementById('quiz-screen').style.display = 'none';
       document.getElementById('result-screen').style.display = 'block';
     });
